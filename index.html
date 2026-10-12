@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BuilderTrend KPI Review — Demo Dashboard</title>
+  <meta name="description" content="Read-only demo dashboard for the weekly BuilderTrend KPI reconciliation sheet: dashboard, KPI table, and exception queue.">
+  <link rel="preconnect" href="https://sheets.googleapis.com">
+  <link rel="preconnect" href="https://docs.google.com">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230e2a47'/><text x='16' y='22' font-family='Georgia,serif' font-size='16' fill='%23c8a02c' text-anchor='middle'>BT</text></svg>">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">BT</div>
+        <div class="brand-text">
+          <h1>BuilderTrend KPI Review</h1>
+          <p class="tagline">Weekly reconciliation dashboard &middot; demo connected to the sample KPI Google Sheet</p>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <span class="source-badge" id="source-badge" title="Where the data on this page came from">
+          <span class="source-dot"></span>
+          <span id="source-label">Loading&hellip;</span>
+        </span>
+        <span class="updated-at" id="updated-at"></span>
+        <button type="button" class="btn btn-ghost" id="refresh-btn">Refresh data</button>
+      </div>
+    </div>
+
+    <nav class="tabs" id="nav" aria-label="Primary">
+      <a href="#/dashboard" data-route="dashboard">Dashboard</a>
+      <a href="#/table" data-route="table">KPI Table</a>
+      <a href="#/exceptions" data-route="exceptions">
+        Exception Queue
+        <span class="tab-count" id="nav-exception-count" hidden>0</span>
+      </a>
+      <a class="sheet-link" id="sheet-link" href="#" target="_blank" rel="noopener">Open source sheet &nearr;</a>
+    </nav>
+  </header>
+
+  <main class="app" id="app">
+    <div class="state-panel" id="boot-state">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Loading KPI data&hellip;</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      Read-only demo for the BuilderTrend KPI interview exercise. Data is read from
+      <a href="https://docs.google.com/spreadsheets/d/1cjmWCRs_isWJHEmHsbJVOJ7_17K0akFOxUnh-6Y_HGE/edit" target="_blank" rel="noopener">the sample KPI Google Sheet</a>
+      when it is shared publicly, otherwise bundled sample data is shown. No writes, no auth.
+    </p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/format.js"></script>
+  <script src="data/sample-data.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

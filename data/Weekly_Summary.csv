@@ -1,0 +1,10 @@
+Job_ID,Job_Name,Week_Ending,Total_Budget,Total_Actual_BT,Overall_Cost_Variance_Pct,Lines_Needing_Review,Clean_Lines,Status
+J123,Maple Ridge Residence,2026-09-28,123100.00,120309.31,-2.27,1,3,Needs Review
+J456,Cedar Hollow Townhomes,2026-09-28,102300.00,99330.71,-2.90,0,4,Clean
+J789,Oakview Kitchen & Bath,2026-09-28,107100.00,107391.93,0.27,0,4,Clean
+J123,Maple Ridge Residence,2026-10-05,123400.00,123245.83,-0.12,0,4,Clean
+J456,Cedar Hollow Townhomes,2026-10-05,100000.00,98495.82,-1.50,1,3,Needs Review
+J789,Oakview Kitchen & Bath,2026-10-05,107400.00,99124.11,-7.71,1,3,Needs Review
+J123,Maple Ridge Residence,2026-10-12,122200.00,124755.90,2.09,2,2,Needs Review
+J456,Cedar Hollow Townhomes,2026-10-12,100800.00,106744.14,5.90,2,2,Needs Review
+J789,Oakview Kitchen & Bath,2026-10-12,106000.00,103341.41,-2.51,1,3,Needs Review

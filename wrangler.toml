@@ -1,0 +1,5 @@
+# Cloudflare Pages configuration for the BuilderTrend KPI demo site.
+# Deploy with:  npx wrangler pages deploy . --project-name buildertrend-kpi-frontend
+name = "buildertrend-kpi-frontend"
+compatibility_date = "2026-10-12"
+pages_build_output_dir = "."

@@ -36,7 +36,7 @@
 
   Views.openExceptionCount = function () {
     return Data.store.merged.filter(
-      (row) => row.Status === "Needs Review" && !isReviewed(row)
+      (row) => F.isReviewStatus(row.Status) && !isReviewed(row)
     ).length;
   };
 
@@ -140,7 +140,7 @@
         const cls = [column.num ? "num" : ""].filter(Boolean).join(" ");
         return `<td${cls ? ` class="${cls}"` : ""}>${cellHtml(column, row)}</td>`;
       }).join("");
-      const rowCls = row.Status === "Needs Review" && !isReviewed(row) ? ' class="row--review"' : "";
+      const rowCls = F.isReviewStatus(row.Status) && !isReviewed(row) ? ' class="row--review"' : "";
       return `<tr${rowCls} data-key="${F.esc(row._key)}">${cells}</tr>`;
     }).join("");
 
@@ -168,7 +168,7 @@
   }
 
   function tableFooter(rows) {
-    const review = rows.filter((r) => r.Status === "Needs Review").length;
+    const review = rows.filter((r) => F.isReviewStatus(r.Status)).length;
     return `
       <div class="table-foot">
         <span>Showing <strong>${rows.length}</strong> line${rows.length === 1 ? "" : "s"} · <strong>${review}</strong> needing review</span>
@@ -192,7 +192,7 @@
     const mismatches = merged.filter((r) => r.Mismatch_Flag === "Mismatch").length;
     const noSecondary = merged.filter((r) => r.Mismatch_Flag === "No Secondary").length;
     const overBudget = merged.filter((r) => r.Cost_Flag === "Over Budget").length;
-    const open = merged.filter((r) => r.Status === "Needs Review" && !isReviewed(r)).length;
+    const open = merged.filter((r) => F.isReviewStatus(r.Status) && !isReviewed(r)).length;
 
     return { summary, merged, budget, actual, costVariance, needing, totalLines, changeOrders, behind, mismatches, noSecondary, overBudget, open };
   }
@@ -246,7 +246,7 @@
 
     function renderBody() {
       const stats = cardsForWeek(dashState.week);
-      const rowsNeeding = stats.merged.filter((r) => r.Status === "Needs Review");
+      const rowsNeeding = stats.merged.filter((r) => F.isReviewStatus(r.Status));
       const jobRows = stats.summary.slice().sort((a, b) => b.Overall_Cost_Variance_Pct - a.Overall_Cost_Variance_Pct);
       const maxAbsVariance = Math.max(1, ...jobRows.map((r) => Math.abs(r.Overall_Cost_Variance_Pct)));
       const flagMax = Math.max(1, stats.mismatches, stats.noSecondary, stats.behind, stats.overBudget, stats.needing);
@@ -306,7 +306,7 @@
             </thead>
             <tbody>
               ${jobRows.map((row) => `
-                <tr${row.Status === "Needs Review" ? ' class="row--review"' : ""}>
+                <tr${F.isReviewStatus(row.Status) ? ' class="row--review"' : ""}>
                   <td><a class="job-link" href="#/job/${F.esc(row.Job_ID)}">${F.esc(row.Job_ID)} <span class="muted">${F.esc(row.Job_Name)}</span></a></td>
                   <td class="num">${F.money(row.Total_Budget)}</td>
                   <td class="num">${F.money(row.Total_Actual_BT)}</td>
@@ -389,7 +389,7 @@
       case "nosecondary": return row.Mismatch_Flag === "No Secondary";
       case "behind": return row.Production_Flag === "Behind";
       case "over": return row.Cost_Flag === "Over Budget";
-      case "review": return row.Status === "Needs Review";
+      case "review": return F.isReviewStatus(row.Status);
       default: return true;
     }
   }
@@ -565,7 +565,7 @@
 
   Views.exceptions = function (root) {
     const data = Data.store;
-    const all = data.merged.filter((row) => row.Status === "Needs Review");
+    const all = data.merged.filter((row) => F.isReviewStatus(row.Status));
     const jobs = F.unique(all.map((r) => r.Job_ID));
 
     function viewCounts() {
@@ -691,7 +691,7 @@
     const budget = F.sum(rows, (r) => r.Budget);
     const actual = F.sum(rows, (r) => r.Actual_BT);
     const variance = budget ? ((actual - budget) / budget) * 100 : 0;
-    const needing = rows.filter((r) => r.Status === "Needs Review").length;
+    const needing = rows.filter((r) => F.isReviewStatus(r.Status)).length;
     const changeOrders = F.sum(rows, (r) => r.Change_Order_This_Week);
     const jobName = rows[0].Job_Name;
 
@@ -729,7 +729,7 @@
           </thead>
           <tbody>
             ${summary.map((row) => `
-              <tr${row.Status === "Needs Review" ? ' class="row--review"' : ""}>
+              <tr${F.isReviewStatus(row.Status) ? ' class="row--review"' : ""}>
                 <td class="nowrap">${F.esc(F.dateLabel(row.Week_Ending))}</td>
                 <td class="num">${F.money(row.Total_Budget)}</td>
                 <td class="num">${F.money(row.Total_Actual_BT)}</td>

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the bundled sample data used by the BuilderTrend KPI demo site.
 
-Outputs (into data/):
+Outputs (into public/data/, the directory Cloudflare Pages deploys):
   Merged_KPI.csv       - detailed rows, same columns as the real sheet
   Weekly_Summary.csv   - one row per job/week
   sample-data.js       - the same CSV strings embedded so the site also works
@@ -20,7 +20,7 @@ import os
 import random
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT_DIR = os.path.join(ROOT, "data")
+OUT_DIR = os.path.join(ROOT, "public", "data")
 
 MERGED_HEADER = [
     "Job_ID", "Job_Name", "Cost_Code", "Cost_Code_Name", "Week_Ending",

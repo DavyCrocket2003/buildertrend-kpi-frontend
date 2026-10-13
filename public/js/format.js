@@ -200,6 +200,7 @@
     Clean: "chip--ok",
     Mismatch: "chip--mismatch",
     "Needs Review": "chip--review",
+    "Has Exceptions": "chip--review",
     "No Secondary": "chip--nosecondary",
     Behind: "chip--behind",
     "Over Budget": "chip--over",
@@ -209,6 +210,12 @@
     if (value === null || value === undefined || value === "") return '<span class="muted">—</span>';
     const cls = CHIP_CLASS[value] || "chip--info";
     return `<span class="chip ${cls}">${F.esc(value)}</span>`;
+  };
+
+  // The brief says Status is "Clean" / "Needs Review", but the live
+  // Weekly_Summary tab uses "Has Exceptions" — treat both as review state.
+  F.isReviewStatus = function (status) {
+    return status === "Needs Review" || status === "Has Exceptions";
   };
 
   // Colors a value as "bad" (red) or "good" (green).
